@@ -1,3 +1,6 @@
+# Alec Brandt
+
+# Creates the rooms and items dictionaries
 def setup_game():
     rooms = {
         'The Camp': {'North': 'The Forest', 'description': 'You are at The Camp. There is a path to the North leading to The Forest.', 'items': ['Flashlight', 'Pickaxe', 'Snickers bar']},
@@ -24,6 +27,7 @@ def setup_game():
     
     return rooms, items
 
+# Instructions for game start and commands/help command
 def show_instructions():
     print("""
     \033[1;31mJust a Bite - The Text-Based Adventure\033[0m
@@ -40,6 +44,7 @@ def show_instructions():
     - exit (to quit the game)
     """)
 
+# Refreshes and gives the status of current room
 def show_status(current_room, inventory, rooms):
     print(rooms[current_room]['description'])
     print("You see:")
@@ -53,14 +58,16 @@ def show_status(current_room, inventory, rooms):
     for action in rooms[current_room].get('actions', []):
         print(f"{index}. {action}")
         index += 1
-    if current_room == 'The Cave Silicon Stalactites' and 'Master Seed Crystal' in inventory:
+    if current_room == 'The Cave Silicon Stalactites' and 'Master Seed Crystal' in inventory:  # Special check for secret end game (better than burger)
         print("A faint scent of.... fried chicken in the distance?")
 
+# Prints inventory with index for interactions
 def show_inventory(inventory):
     print("Inventory:")
     for index, item in enumerate(inventory, start=1):
         print(f"{index}. {item}")
 
+# Moving between rooms and showing feedback to player
 def move_between_rooms(current_room, direction, rooms, inventory):
     direction = direction.capitalize()
     if direction in rooms[current_room]:
@@ -70,11 +77,13 @@ def move_between_rooms(current_room, direction, rooms, inventory):
         print("You can't go that way!")
     return current_room
 
+# Item pickup system and update room
 def get_item_by_number(current_room, number, inventory, rooms):
     items_in_room = rooms[current_room].get('items', [])
     if 0 < number <= len(items_in_room):
         item = items_in_room[number - 1]
-        if item == '40% off 12pc bucket':
+        # Special if case for
+        if item == '40% off 12pc bucket':  # Special condition check for the caveFC experience
             print("Sorry, looks like this is an online-only offer. Looks like there's no exceptions...")
         elif item == 'Ring Doorbell' or item == 'A nice looking bush':
             print(f"You can't get the {item.lower()}.")
@@ -87,6 +96,7 @@ def get_item_by_number(current_room, number, inventory, rooms):
         print("Invalid choice!")
     return inventory
 
+# Clerk interaction with flags changing interaction depending on gameplay
 def interact_with_clerk(inventory, interacted_with_clerk, learned_about_origin, learned_from_clerk):
     if not interacted_with_clerk:
         if 'Shiny Rock' in inventory:
@@ -178,6 +188,7 @@ def interact_with_clerk(inventory, interacted_with_clerk, learned_about_origin, 
         print("Clerk: We've already talked. Get some more of that stuff and I'll take you to McD's myself!")
     return interacted_with_clerk, learned_about_origin
 
+# Architect interaction with special flag if you're wearing your *very cool* hat
 def interact_with_architect(wearing_hat):
     print("""
     The Architect: I am The Architect. My god processor will soon be complete, and I will take over humanity!
@@ -242,6 +253,7 @@ def interact_with_architect(wearing_hat):
         print("Invalid choice!")
     return False, False
 
+# T-Pose robot interact with pickaxe condition (there is not a bug related to this don't look ty)
 def interact_with_robot(inventory):
     print("""
     The robot is blocking your way in a menacing T-pose position.
@@ -265,6 +277,7 @@ def interact_with_robot(inventory):
         print("Invalid choice!")
         return False
 
+# Ring Doorbell interaction with condition based on learning from the clerk or not.
 def interact_with_ring_doorbell(learned_from_clerk):
     print("""
     You see a ring doorbell on the side of the cave entrance.
@@ -289,12 +302,14 @@ def interact_with_ring_doorbell(learned_from_clerk):
         print("Invalid choice!")
         return False
 
+# Solid Snake bush crawl
 def interact_with_bush():
     print("""
     The fluffy bush looks so inviting- you jump into it solid snake style and use it to approach the cave entrance.
     """)
     return 'bush'
 
+# Item interactions with super secret better than burger end game trick
 def interact_with_inventory_item(item, inventory, current_room):
     if item == "Flashlight":
         print("Looks like a reliable Flashlight!")
@@ -332,6 +347,7 @@ def interact_with_inventory_item(item, inventory, current_room):
             print("The Master Seed Crystal is of such perfect design and crystalline structure that it is able to rewrite the fabric of reality like it's a python text game or something.")
     return False
 
+# Calling all the setup and stuff sequentially and handling input and some stuff I really just didn't want to break away into another function even tho it may have been a little prettier
 def main():
     rooms, items = setup_game()
     inventory = []
@@ -486,5 +502,6 @@ def main():
         else:
             print("Invalid command!")
 
+#bc we like when things just work :)
 if __name__ == "__main__":
-    main()
+    main()  #GOGOGOGO
