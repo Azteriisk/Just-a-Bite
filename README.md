@@ -1,4 +1,4 @@
-﻿# Just-a-Bite
+﻿# Just a Byte
 
 A small CLI text-based adventure made in Python for a school project.<br>
 Not horrible but certainly not great.<br><br>
