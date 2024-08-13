@@ -30,7 +30,7 @@ def setup_game():
 # Instructions for game start and commands/help command
 def show_instructions():
     print("""
-    \033[1;31mJust a Bite - The Text-Based Adventure\033[0m
+    \033[1;31mJust a Byte - The Text-Based Adventure\033[0m
     \033[1;37mYou are very poor and very hungry. Obtain borger... or better :)\033[0m
     -------------------
     \033[1;32mCommands:\033[0m
